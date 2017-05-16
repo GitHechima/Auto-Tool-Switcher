@@ -1,0 +1,261 @@
+/* 
++===============================================+
+Copyright © 2017 Hechima. All Rights Reserved.
++===============================================+
+*/
+
+const pickaxes = [257,270,274,278,285],axes = [258,271,275,279,286],shovels = [256,269,273,277,284],swords = [267,268,272,276,283],scissors = [359];
+
+function startDestroyBlock(x,  y,  z,  side){
+	
+if(Level.getGameMode() === 0){
+
+//ツルハシ
+
+switch (getTile(x, y, z)){
+
+case 1:
+case 4:
+case 14:
+case 15:
+case 16:
+case 21:
+case 22:
+case 23:
+case 24:
+case 27:
+case 28:
+case 41:
+case 42:
+case 43:
+case 44:
+case 45:
+case 48:
+case 49:
+case 52:
+case 56:
+case 57:
+case 61:
+case 62:
+case 66:
+case 67:
+case 69:
+case 70:
+case 71:
+case 73:
+case 74:
+case 77:
+case 79:
+case 87:
+case 89:
+case 97:
+case 98:
+case 101:
+case 108:
+case 109:
+case 112:
+case 113:
+case 114:
+case 116:
+case 117:
+case 118:
+case 120:
+case 121:
+case 123:
+case 124:
+case 125:
+case 126:
+case 128:
+case 129:
+case 133:
+case 138:
+case 139:
+case 145:
+case 147:
+case 148:
+case 149:
+case 150:
+case 151:
+case 152:
+case 153:
+case 154:
+case 155:
+case 156:
+case 159:
+case 167:
+case 168:
+case 169:
+case 172:
+case 173:
+case 174:
+case 179:
+case 180:
+case 181:
+case 182:
+case 245:
+case 246:
+case 247:
+case 251:
+case 255:
+
+Switch(pickaxes);
+
+break;
+
+//オノ
+case 5:
+case 17:
+case 47:
+case 53:
+case 54:
+case 58:
+case 63:
+case 64:
+case 65:
+case 68:
+case 72:
+case 85:
+case 86:
+case 91:
+case 96:
+case 99:
+case 100:
+case 103:
+case 107:
+case 127:
+case 134:
+case 135:
+case 136:
+case 143:
+case 146:
+case 157:
+case 158:
+case 162:
+case 163:
+case 164:
+case 183:
+case 184:
+case 185:
+case 186:
+case 187:
+case 193:
+case 194:
+case 195:
+case 196:
+case 197:
+
+Switch(axes);
+
+break;
+
+//ショベル
+case 2:
+case 3:
+case 12:
+case 13:
+case 78:
+case 80:
+case 82:
+case 88:
+case 110:
+case 198:
+case 243:
+case 248:
+case 249:
+case 253:
+
+Switch(shovels);
+
+break;
+
+//ハサミ
+case 18:
+case 30:
+case 35:
+case 106:
+
+Switch(scissors);
+
+break;
+
+  }
+  
+ }
+ 
+}
+
+
+
+function attackHook(attacker, victim){
+	
+if(Level.getGameMode() === 0){
+
+Switch(swords);
+
+}
+
+}
+
+function Switch(tool){
+
+loopout: for(let i = 0; i <= 45; i = (i+1)|0){
+	
+for(let j = 0; j <= tool.length; j = (j+1)|0){
+	
+if(Player.getInventorySlot(i) === tool[j] && i <= 8){
+	
+Player.setSelectedSlotId(i);
+
+break loopout;
+
+}
+
+if(i === 45){
+	
+break loopout;
+
+}
+	
+if(Player.getInventorySlot(i) === tool[j] && Player.getCarriedItem() !== 0){
+	
+let itemId = Player.getCarriedItem();
+
+let itemCount = Player.getCarriedItemCount();
+
+let itemData = Player.getCarriedItemData();
+
+Entity.setCarriedItem(Player.getEntity(), Player.getInventorySlot(i), Player.getInventorySlotCount(i), Player.getInventorySlotData(i));
+
+Player.setInventorySlot(i,itemId, itemCount, itemData);
+
+break loopout;
+
+}
+
+if(Player.getInventorySlot(i) === tool[j] && Player.getCarriedItem() === 0){
+	
+Player.addItemInventory(Player.getInventorySlot(i), Player.getInventorySlotCount(i), Player.getInventorySlotData(i));
+
+Player.clearInventorySlot(i);
+
+for(let k = 0; k <= 8; k = (k+1)|0){
+	
+if(Player.getInventorySlot(k) === tool[j]){
+	
+Player.setSelectedSlotId(k);
+
+break loopout;
+
+}
+
+}
+
+break loopout;
+
+}
+
+}
+
+}
+
+}
